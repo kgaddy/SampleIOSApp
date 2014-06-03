@@ -12,7 +12,6 @@
 - (id)initWithJSON:(id)JSON {
 	self = [super init];
 	[self setWeatherDescription:[[JSON valueForKey:@"description"] objectAtIndex:0]];
-    //[NSString stringWithFormat:@"%@", [JSON valueForKey:@"description"]]
 	[self setMain:[JSON valueForKey:@"main"]];
 	return self;
 }
