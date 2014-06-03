@@ -16,8 +16,6 @@
     [self setTemp:[JSON valueForKey:@"temp"]];
     [self setHumidity:[[JSON valueForKey:@"humidity"] doubleValue]];
     [self setPressure:[[JSON valueForKey:@"pressure"] doubleValue]];
-    float tempC = [[JSON valueForKey:@"temp"] floatValue];
-    self.tempFahrenheit = [self convertToFahrenheit:tempC];
     
     return self;
 }
