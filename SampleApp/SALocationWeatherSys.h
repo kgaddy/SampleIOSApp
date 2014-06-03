@@ -13,6 +13,5 @@
 @property (strong,nonatomic)NSString *country;
 @property (assign, nonatomic)double sunrise, sunset;
 
-
 - (id)initWithJSON:(id)JSON;
 @end

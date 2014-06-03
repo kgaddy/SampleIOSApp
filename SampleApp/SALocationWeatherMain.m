@@ -13,8 +13,6 @@
 - (id)initWithJSON:(id)JSON {
     self = [super init];
     
-    
-
     [self setTemp:[JSON valueForKey:@"temp"]];
     [self setHumidity:[[JSON valueForKey:@"humidity"] doubleValue]];
     [self setPressure:[[JSON valueForKey:@"pressure"] doubleValue]];

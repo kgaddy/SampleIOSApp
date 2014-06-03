@@ -14,14 +14,9 @@
 - (id)initWithJSON:(id)JSON {
     self = [super init];
 
-    
     [self setCountry:[JSON valueForKey:@"country"]];
     [self setSunrise:[[JSON valueForKey:@"sunrise"] doubleValue]];
     [self setSunset:[[JSON valueForKey:@"sunset"] doubleValue]];
-
-
-    
-    
     return self;
 }
 

@@ -68,8 +68,7 @@
 }
 
 - (void)aboutAction:(id)sender {
-	//SPObjectFormViewController *controller = [[SPObjectFormViewController alloc] init];
-	//[self.navigationController pushViewController:controller animated:YES];
+
 }
 
 - (void)viewDidLoad {

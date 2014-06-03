@@ -16,7 +16,7 @@
     SALocationWeather *localWeather;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://api.openweathermap.org/data/2.5/weather?q=St.%20Louis,usa" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:@"http://api.openweathermap.org/data/2.5/weather?q=St.%20Louis,usa&units=imperial" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
 
         success(responseObject);
