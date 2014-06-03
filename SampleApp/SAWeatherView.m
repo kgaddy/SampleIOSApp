@@ -34,7 +34,7 @@
         _tempLabel.numberOfLines = 0;
         _tempLabel.textColor = [UIColor titleTextColor];
         _tempLabel.backgroundColor = [UIColor clearColor];
-        [_tempLabel setFont:[UIFont boldSystemFontOfSize:18.0]];
+        [_tempLabel setFont:[UIFont boldSystemFontOfSize:48.0]];
         [_tempLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     return _tempLabel;

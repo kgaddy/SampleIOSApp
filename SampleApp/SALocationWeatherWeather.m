@@ -11,14 +11,8 @@
 @implementation SALocationWeatherWeather
 - (id)initWithJSON:(id)JSON {
 	self = [super init];
-
-
 	[self setWeatherDescription:[JSON valueForKey:@"description"]];
 	[self setMain:[JSON valueForKey:@"main"]];
-
-
-
-
 	return self;
 }
 

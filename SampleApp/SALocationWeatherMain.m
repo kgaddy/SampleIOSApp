@@ -18,9 +18,15 @@
     [self setTemp:[JSON valueForKey:@"temp"]];
     [self setHumidity:[[JSON valueForKey:@"humidity"] doubleValue]];
     [self setPressure:[[JSON valueForKey:@"pressure"] doubleValue]];
-    
-    
+    float tempC = [[JSON valueForKey:@"temp"] floatValue];
+    self.tempFahrenheit = [self convertToFahrenheit:tempC];
     
     return self;
 }
+
+-(NSString *)convertToFahrenheit:(float)celsiusValue{
+    return  [[NSNumber numberWithFloat:(celsiusValue*(9/5)) + 32] stringValue];;
+}
+
+
 @end

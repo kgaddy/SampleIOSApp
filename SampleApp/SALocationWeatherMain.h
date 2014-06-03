@@ -10,6 +10,7 @@
 
 @interface SALocationWeatherMain : NSObject
 @property (assign, nonatomic) double humidity, pressure;
-@property (strong, nonatomic) NSString *temp;
+@property (strong, nonatomic) NSString *temp, *tempFahrenheit;
 - (id)initWithJSON:(id)JSON;
+-(NSString *)convertToFahrenheit:(float)celsiusValue;
 @end

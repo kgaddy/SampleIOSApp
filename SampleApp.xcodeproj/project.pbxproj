@@ -31,6 +31,7 @@
 		4B179427193D15F300E3BBE7 /* SALocationWeatherWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B179426193D15F300E3BBE7 /* SALocationWeatherWeather.m */; };
 		4B17942A193D1AC700E3BBE7 /* SALocationWeatherMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B179429193D1AC700E3BBE7 /* SALocationWeatherMain.m */; };
 		4B17942D193D22E200E3BBE7 /* SAWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B17942C193D22E200E3BBE7 /* SAWeatherView.m */; };
+		4B179430193D6E2800E3BBE7 /* SAJSONObjectUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B17942F193D6E2800E3BBE7 /* SAJSONObjectUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		4B179429193D1AC700E3BBE7 /* SALocationWeatherMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationWeatherMain.m; sourceTree = "<group>"; };
 		4B17942B193D22E200E3BBE7 /* SAWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAWeatherView.h; sourceTree = "<group>"; };
 		4B17942C193D22E200E3BBE7 /* SAWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAWeatherView.m; sourceTree = "<group>"; };
+		4B17942E193D6E2800E3BBE7 /* SAJSONObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAJSONObjectUtil.h; sourceTree = "<group>"; };
+		4B17942F193D6E2800E3BBE7 /* SAJSONObjectUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAJSONObjectUtil.m; sourceTree = "<group>"; };
 		9F8D5CFAB35D4882BA2E73CD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3357F15D3046CCB335BD16 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +173,8 @@
 			children = (
 				4B1793F7193CBCA900E3BBE7 /* SampleAppTests.m */,
 				4B1793F2193CBCA900E3BBE7 /* Supporting Files */,
+				4B17942E193D6E2800E3BBE7 /* SAJSONObjectUtil.h */,
+				4B17942F193D6E2800E3BBE7 /* SAJSONObjectUtil.m */,
 			);
 			path = SampleAppTests;
 			sourceTree = "<group>";
@@ -475,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B179430193D6E2800E3BBE7 /* SAJSONObjectUtil.m in Sources */,
 				4B1793F8193CBCA900E3BBE7 /* SampleAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
