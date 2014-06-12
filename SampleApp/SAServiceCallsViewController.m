@@ -108,15 +108,14 @@
     
     NSString *location = self.getLocationTextField.text;
     if ([location length] >= 3){
-        
         NSLog(@"Location: %@", location);
         
         SAWeatherService *svc = [[SAWeatherService alloc]init];
         
         void (^success)(NSDictionary *) = ^void (NSDictionary *result) {
+            [self.weatherView removeFromSuperview];
             self.weather = [[SALocationWeather alloc]initWithJSON:result];
             self.weatherView = [[SAWeatherView alloc]initWithWeather:self.weather];
-            //self.weatherView.backgroundColor = [UIColor orangeColor];
             
             [self.weatherView setTranslatesAutoresizingMaskIntoConstraints:NO];
             [_views setObject:self.weatherView forKey:@"weatherView"];
@@ -134,26 +133,7 @@
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a valid location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     }
-    NSLog([NSString stringWithFormat:@"Location: %@", location]);
-    
-	SAWeatherService *svc = [[SAWeatherService alloc]init];
-
-	void (^success)(NSDictionary *) = ^void (NSDictionary *result) {
-        [self.weatherView removeFromSuperview];
-		self.weather = [[SALocationWeather alloc]initWithJSON:result];
-        self.weatherView = [[SAWeatherView alloc]initWithWeather:self.weather];
-        
-        [self.weatherView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [_views setObject:self.weatherView forKey:@"weatherView"];
-        [self.view addSubview:self.weatherView];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[weatherView]-|" options:0 metrics:nil views:self.views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[getWeatherButton]-[weatherView]" options:0 metrics:nil views:self.views]];
-	};
-
-	void (^failure)(NSError *) = ^void (NSError *error) {
-	};
-
-	[svc getLocalWeather:location success:success failure:failure];
+	
 }
 
 - (SAInfoCard *)infoCard {
