@@ -36,7 +36,7 @@
 -(UILabel *)locationLabel{
     if(!_locationLabel){
         _locationLabel = [[UILabel alloc]init];
-        _locationLabel.text = [NSString stringWithFormat:@"%@", @"St. Louis"];
+        _locationLabel.text = [NSString stringWithFormat:@"%@", self.weatherModel.name];
         _locationLabel.numberOfLines = 0;
         _locationLabel.textColor = [UIColor titleTextColor];
         _locationLabel.backgroundColor = [UIColor clearColor];

@@ -18,5 +18,6 @@
 @property (strong,nonatomic) SALocationWeatherWeather *weather;
 @property (strong,nonatomic) SALocationWeatherMain *main;
 @property (strong,nonatomic) SALocationCloud *clouds;
+@property (strong,nonatomic) NSString *name;
 - (id)initWithJSON:(id)JSON;
 @end
