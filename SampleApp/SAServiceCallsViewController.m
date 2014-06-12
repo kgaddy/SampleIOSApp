@@ -54,13 +54,27 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.location = locations[0];
     [self.locationManager stopUpdatingLocation];
-    NSLog(@"Location: %@", self.location);
-    //CLGeocoder* gocoder = [[CLGeocoder alloc] init];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSString *city = [[NSString alloc]initWithString:placemark.locality];
+             NSLog(@"\n\nCurrent City:\n %@\n\n", city);
+         }
+         else
+         {
+             NSLog(@"There was an error : %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+         }
+     }];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error!!!" message:@"Hey! You ain't got no location!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, I was unable to identify your location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
 
