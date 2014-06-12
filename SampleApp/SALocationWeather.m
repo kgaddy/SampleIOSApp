@@ -13,6 +13,8 @@
 - (id)initWithJSON:(id)JSON {
     self = [super init];
     NSDictionary *gps = [JSON objectForKey:@"coord"];
+
+    
     CLLocation *LocationAtual = [[CLLocation alloc] initWithLatitude:[[gps valueForKey:@"lat"] doubleValue] longitude:[[gps valueForKey:@"lon"] doubleValue]];
     self.coord = LocationAtual.coordinate;
 
@@ -24,6 +26,10 @@
     
     NSDictionary *mainJSON = [JSON objectForKey:@"main"];
     self.main = [[SALocationWeatherMain alloc]initWithJSON:mainJSON];
+    
+    NSDictionary *cloudJSON = [JSON objectForKey:@"clouds"];
+    self.clouds = [[SALocationCloud alloc]initWithJson:cloudJSON];
+    [self.clouds initCloudImage];
     
     return self;
 }

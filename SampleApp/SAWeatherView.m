@@ -11,7 +11,7 @@
 
 @interface SAWeatherView()
 @property (strong,nonatomic)SALocationWeather *weatherModel;
-@property (strong,nonatomic) UILabel *tempLabel, *descriptionLabel, *locationLabel;
+@property (strong,nonatomic) UILabel *tempLabel, *descriptionLabel, *locationLabel, *cloudPercentLabel, *cloudLabel, *cloudImage;
 @property (strong, nonatomic) NSMutableDictionary *views, *metrics;
 @end
 
@@ -25,6 +25,8 @@
         [self addSubview:self.locationLabel];
         [self addSubview:self.tempLabel];
         [self addSubview:self.descriptionLabel];
+        [self addSubview:self.cloudPercentLabel];
+        [self addSubview:self.cloudImage];
         [self addConstraints];
     }
     return self;
@@ -71,6 +73,31 @@
     return _descriptionLabel;
 }
 
+-(UILabel *)cloudPercentLabel{
+    if(!_cloudPercentLabel){
+        _cloudPercentLabel = [[UILabel alloc]init];
+        _cloudPercentLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.weatherModel.clouds.cloud, @" ", self.weatherModel.clouds.cloudPercentage, @"%"];
+        _cloudPercentLabel.numberOfLines = 0;
+        _cloudPercentLabel.textColor = [UIColor titleTextColor];
+        _cloudPercentLabel.backgroundColor = [UIColor clearColor];
+        [_cloudPercentLabel setFont:[UIFont systemFontOfSize:14.0]];
+        [_cloudPercentLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    }
+    return _cloudPercentLabel;
+}
+
+-(UILabel *)cloudImage{
+    if(!_cloudImage){
+        _cloudImage = [[UILabel alloc]init];
+        _cloudImage.text = [NSString stringWithFormat:@"%@", self.weatherModel.clouds.cloudImage];
+        _cloudImage.numberOfLines = 0;
+        _cloudImage.textColor = [UIColor titleTextColor];
+        _cloudImage.backgroundColor = [UIColor clearColor];
+        [_cloudImage setFont:[UIFont systemFontOfSize:35.0]];
+        [_cloudImage setTranslatesAutoresizingMaskIntoConstraints:NO];
+    }
+    return _cloudImage;
+}
 
 - (NSMutableDictionary *)metrics {
     if (!_metrics) {
@@ -86,6 +113,8 @@
         [_views setObject:self.tempLabel forKey:@"tempLabel"];
         [_views setObject:self.descriptionLabel forKey:@"descriptionLabel"];
         [_views setObject:self.locationLabel forKey:@"locationLabel"];
+        [_views setObject:self.cloudPercentLabel forKey:@"cloudPercentLabel"];
+        [_views setObject:self.cloudImage forKey:@"cloudImage"];
     }
     
     return _views;
@@ -93,7 +122,7 @@
 
 - (void)addConstraints {
 
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[locationLabel]-[tempLabel]-[descriptionLabel]-|" options:0 metrics:self.metrics views:self.views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[locationLabel]-[tempLabel]-[descriptionLabel]-[cloudPercentLabel]-[cloudImage]|" options:0 metrics:self.metrics views:self.views]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLabel
                                                      attribute:NSLayoutAttributeCenterX
@@ -118,9 +147,20 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.cloudPercentLabel
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual                                                        toItem:self.descriptionLabel
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.cloudImage
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual                                                        toItem:self.cloudPercentLabel
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0]];
 }
-
-
-
 
 @end
