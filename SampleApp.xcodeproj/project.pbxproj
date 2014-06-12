@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E13921C194A08EB00CEB590 /* SALocationCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E13921B194A08EB00CEB590 /* SALocationCloud.m */; };
 		2B4F3B5986904A9786C3D6E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8D5CFAB35D4882BA2E73CD /* libPods.a */; };
 		4B1793CD193CBCA800E3BBE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1793CC193CBCA800E3BBE7 /* Foundation.framework */; };
 		4B1793CF193CBCA800E3BBE7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1793CE193CBCA800E3BBE7 /* CoreGraphics.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E13921A194A08EB00CEB590 /* SALocationCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationCloud.h; sourceTree = "<group>"; };
+		0E13921B194A08EB00CEB590 /* SALocationCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationCloud.m; sourceTree = "<group>"; };
 		4B1793C9193CBCA800E3BBE7 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1793CC193CBCA800E3BBE7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4B1793CE193CBCA800E3BBE7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -241,6 +244,8 @@
 				4B179426193D15F300E3BBE7 /* SALocationWeatherWeather.m */,
 				4B179428193D1AC700E3BBE7 /* SALocationWeatherMain.h */,
 				4B179429193D1AC700E3BBE7 /* SALocationWeatherMain.m */,
+				0E13921A194A08EB00CEB590 /* SALocationCloud.h */,
+				0E13921B194A08EB00CEB590 /* SALocationCloud.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -462,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B17942A193D1AC700E3BBE7 /* SALocationWeatherMain.m in Sources */,
+				0E13921C194A08EB00CEB590 /* SALocationCloud.m in Sources */,
 				4B17942D193D22E200E3BBE7 /* SAWeatherView.m in Sources */,
 				4B1793DD193CBCA800E3BBE7 /* SAAppDelegate.m in Sources */,
 				4B17941E193D123800E3BBE7 /* SAWeatherService.m in Sources */,
