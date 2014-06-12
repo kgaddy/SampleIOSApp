@@ -14,6 +14,7 @@
 @interface SAServiceCallsViewController ()
 @property (strong, nonatomic) SAInfoCard *infoCard;
 @property (strong, nonatomic) NSMutableDictionary *views, *metrics;
+@property (strong, nonatomic) UITextField *getLocationTextField;
 @property (strong, nonatomic) UIButton *getWeatherButton;
 @property (strong, nonatomic) SALocationWeather *weather;
 @property (strong, nonatomic) SAWeatherView *weatherView;
@@ -36,6 +37,7 @@
 	}
 	self.view.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:self.infoCard];
+	[self.view addSubview:self.getLocationTextField];
 	[self.view addSubview:self.getWeatherButton];
 	[self addConstraints];
     
@@ -63,6 +65,7 @@
              CLPlacemark *placemark = [placemarks objectAtIndex:0];
              NSString *city = [[NSString alloc]initWithString:placemark.locality];
              NSLog(@"\n\nCurrent City:\n %@\n\n", city);
+             self.getLocationTextField.text = city;
          }
          else
          {
@@ -78,6 +81,15 @@
     [errorAlert show];
 }
 
+- (UITextField *)getLocationTextField {
+	if (!_getLocationTextField) {
+		_getLocationTextField = [[UITextField alloc]init];
+		_getLocationTextField.borderStyle = UITextBorderStyleRoundedRect;
+		[_getLocationTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+	}
+	return _getLocationTextField;
+}
+
 - (UIButton *)getWeatherButton {
 	if (!_getWeatherButton) {
 		_getWeatherButton = [[UIButton alloc]init];
@@ -91,6 +103,13 @@
 }
 
 - (void)weatherCallAction:(id)sender {
+    
+    NSString *location = self.getLocationTextField.text;
+    if (!location){
+        location = @"St. Louis";
+    }
+    NSLog([NSString stringWithFormat:@"Location: %@", location]);
+    
 	SAWeatherService *svc = [[SAWeatherService alloc]init];
 
 	void (^success)(NSDictionary *) = ^void (NSDictionary *result) {
@@ -108,7 +127,7 @@
 	void (^failure)(NSError *) = ^void (NSError *error) {
 	};
 
-	[svc getLocalWeather:@"St. Louis" success:success failure:failure];
+	[svc getLocalWeather:location success:success failure:failure];
 }
 
 - (SAInfoCard *)infoCard {
@@ -132,6 +151,7 @@
 		_views = [[NSMutableDictionary alloc]init];
 		[_views setObject:self.infoCard forKey:@"infoCard"];
 		[_views setObject:self.getWeatherButton forKey:@"getWeatherButton"];
+		[_views setObject:self.getLocationTextField forKey:@"getLocationTextField"];
         
 	}
 	return _views;
@@ -139,8 +159,9 @@
 
 - (void)addConstraints {
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[infoCard]|" options:0 metrics:nil views:self.views]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[getLocationTextField]-|" options:0 metrics:nil views:self.views]];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[getWeatherButton]-|" options:0 metrics:nil views:self.views]];
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[infoCard]-[getWeatherButton(44)]" options:0 metrics:nil views:self.views]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[infoCard]-[getLocationTextField]-[getWeatherButton(44)]" options:0 metrics:nil views:self.views]];
 }
 
 @end
