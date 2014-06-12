@@ -56,6 +56,7 @@
 	SAWeatherService *svc = [[SAWeatherService alloc]init];
 
 	void (^success)(NSDictionary *) = ^void (NSDictionary *result) {
+        [self.weatherView removeFromSuperview];
 		self.weather = [[SALocationWeather alloc]initWithJSON:result];
         self.weatherView = [[SAWeatherView alloc]initWithWeather:self.weather];
         //self.weatherView.backgroundColor = [UIColor orangeColor];
