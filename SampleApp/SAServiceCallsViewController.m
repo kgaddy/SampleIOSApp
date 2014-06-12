@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIButton *getWeatherButton;
 @property (strong, nonatomic) SALocationWeather *weather;
 @property (strong, nonatomic) SAWeatherView *weatherView;
+@property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) CLLocation* location;
 @end
 
 @implementation SAServiceCallsViewController
@@ -40,6 +42,45 @@
 	[self.view addSubview:self.getLocationTextField];
 	[self.view addSubview:self.getWeatherButton];
 	[self addConstraints];
+    
+    [self currentLocationInitializing];
+}
+
+- (void)currentLocationInitializing {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.location = locations[0];
+    [self.locationManager stopUpdatingLocation];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSString *city = [[NSString alloc]initWithString:placemark.locality];
+             NSLog(@"\n\nCurrent City:\n %@\n\n", city);
+             self.getLocationTextField.text = city;
+         }
+         else
+         {
+             NSLog(@"There was an error : %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+         }
+     }];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, I was unable to identify your location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
 }
 
 - (UITextField *)getLocationTextField {
@@ -93,6 +134,26 @@
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a valid location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     }
+    NSLog([NSString stringWithFormat:@"Location: %@", location]);
+    
+	SAWeatherService *svc = [[SAWeatherService alloc]init];
+
+	void (^success)(NSDictionary *) = ^void (NSDictionary *result) {
+        [self.weatherView removeFromSuperview];
+		self.weather = [[SALocationWeather alloc]initWithJSON:result];
+        self.weatherView = [[SAWeatherView alloc]initWithWeather:self.weather];
+        
+        [self.weatherView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [_views setObject:self.weatherView forKey:@"weatherView"];
+        [self.view addSubview:self.weatherView];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[weatherView]-|" options:0 metrics:nil views:self.views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[getWeatherButton]-[weatherView]" options:0 metrics:nil views:self.views]];
+	};
+
+	void (^failure)(NSError *) = ^void (NSError *error) {
+	};
+
+	[svc getLocalWeather:location success:success failure:failure];
 }
 
 - (SAInfoCard *)infoCard {
