@@ -31,6 +31,8 @@
     self.clouds = [[SALocationCloud alloc]initWithJson:cloudJSON];
     [self.clouds initCloudImage];
     
+    self.name = [JSON objectForKey:@"name"];
+    
     return self;
 }
 @end
