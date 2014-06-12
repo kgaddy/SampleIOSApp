@@ -38,6 +38,30 @@
 	[self.view addSubview:self.infoCard];
 	[self.view addSubview:self.getWeatherButton];
 	[self addConstraints];
+    
+    [self currentLocationInitializing];
+}
+
+- (void)currentLocationInitializing {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.location = locations[0];
+    [self.locationManager stopUpdatingLocation];
+    NSLog(@"Location: %@", self.location);
+    //CLGeocoder* gocoder = [[CLGeocoder alloc] init];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error!!!" message:@"Hey! You ain't got no location!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
 }
 
 - (UIButton *)getWeatherButton {
