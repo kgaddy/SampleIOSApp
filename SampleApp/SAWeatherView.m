@@ -47,7 +47,8 @@
 -(UILabel *)tempLabel{
     if(!_tempLabel){
         _tempLabel = [[UILabel alloc]init];
-        _tempLabel.text = [NSString stringWithFormat:@"%@", self.weatherModel.main.temp];
+        int tempInt = [self.weatherModel.main.temp integerValue];
+        _tempLabel.text = [NSString stringWithFormat:@"%d℉", tempInt];
         _tempLabel.numberOfLines = 0;
         _tempLabel.textColor = [UIColor titleTextColor];
         _tempLabel.backgroundColor = [UIColor clearColor];
