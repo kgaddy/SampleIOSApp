@@ -11,7 +11,4 @@
 
 @interface SAServiceCallsViewController : UIViewController <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLLocationManager* locationManager;
-@property (strong, nonatomic) CLLocation* location;
-
 @end

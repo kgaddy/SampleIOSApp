@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIButton *getWeatherButton;
 @property (strong, nonatomic) SALocationWeather *weather;
 @property (strong, nonatomic) SAWeatherView *weatherView;
+@property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) CLLocation* location;
 @end
 
 @implementation SAServiceCallsViewController
