@@ -14,9 +14,12 @@
 
 -(SALocationWeather *)getLocalWeather:(NSString *)locationString success:(success)success failure:(failure)failure{
     SALocationWeather *localWeather;
+
+    locationString = [locationString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSString *url = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?q=%@,usa&units=imperial",locationString];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://api.openweathermap.org/data/2.5/weather?q=St.%20Louis,usa&units=imperial" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
 
         success(responseObject);
