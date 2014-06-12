@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIButton *getWeatherButton;
 @property (strong, nonatomic) SALocationWeather *weather;
 @property (strong, nonatomic) SAWeatherView *weatherView;
+@property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) CLLocation* location;
 @end
 
 @implementation SAServiceCallsViewController
@@ -40,6 +42,45 @@
 	[self.view addSubview:self.getLocationTextField];
 	[self.view addSubview:self.getWeatherButton];
 	[self addConstraints];
+    
+    [self currentLocationInitializing];
+}
+
+- (void)currentLocationInitializing {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.location = locations[0];
+    [self.locationManager stopUpdatingLocation];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSString *city = [[NSString alloc]initWithString:placemark.locality];
+             NSLog(@"\n\nCurrent City:\n %@\n\n", city);
+             self.getLocationTextField.text = city;
+         }
+         else
+         {
+             NSLog(@"There was an error : %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+         }
+     }];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, I was unable to identify your location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
 }
 
 - (UITextField *)getLocationTextField {
