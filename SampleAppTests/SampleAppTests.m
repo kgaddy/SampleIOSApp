@@ -33,7 +33,6 @@
     NSMutableDictionary *JSON = [jsonUtil generateWeatherMain:@"50" humidity:@"300" pressure:@"200"];
     SALocationWeatherMain *weatherMain = [[SALocationWeatherMain alloc]initWithJSON:JSON];
     XCTAssertTrue([weatherMain.temp isEqualToString:@"50"]);
-    XCTAssertTrue([weatherMain.tempFahrenheit isEqualToString:@"82"]);
     XCTAssertTrue(weatherMain.humidity == 300);
     XCTAssertTrue(weatherMain.pressure == 200);
 }
